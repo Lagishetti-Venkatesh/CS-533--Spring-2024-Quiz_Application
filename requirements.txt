@@ -53,3 +53,4 @@ Werkzeug                  3.0.2
 whichcraft                0.6.1
 zope.event                5.0
 zope.interface            6.1
+Gunicorn

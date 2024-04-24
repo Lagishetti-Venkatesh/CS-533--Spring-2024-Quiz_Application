@@ -124,5 +124,5 @@ def exit():
     session.clear()  # Clears the session before exiting
     return render_template('exit.html')
 
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+ #   app.run(debug=True)

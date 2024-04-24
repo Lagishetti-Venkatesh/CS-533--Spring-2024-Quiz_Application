@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goodbye</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #312e2e; /* Classic background color */
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .blast {
+            font-size: 50px;
+            font-weight: bold;
+            animation: blast 2s ease-out forwards;
+            color: #ff0000;
+            text-shadow:
+                0 0 10px #ff0000,
+                0 0 20px #ff7f00,
+                0 0 30px #ffff00,
+                0 0 40px #7fff00,
+                0 0 50px #00ff00,
+                0 0 60px #007fff,
+                0 0 70px #0000ff,
+                0 0 80px #7f00ff,
+                0 0 90px #ff00ff;
+        }
+
+        @keyframes blast {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 0;
+                transform: scale(3);
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="blast">Thanks for participating in the QUIZ!</div>
+</body>
+</html>

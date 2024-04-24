@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            opacity: 0;
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+        td.file-path {
+            max-width: 200px; /* or any width you think is appropriate */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        td.file-path:hover {
+            overflow: visible;
+            white-space: normal;
+            word-break: break-all; /* ensures the content wraps */
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        a {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz History</h1>
+    {% if history_records %}
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>File Path</th>
+                <th>Number of Questions</th>
+                <th>Questions Asked</th>
+                <th>Correct Answers</th>
+            </tr>
+            {% for record in history_records %}
+            <tr>
+                <td>{{ record.timestamp }}</td>
+                <td class="file-path" title="{{ record.file_path }}">{{ record.file_path }}</td>
+                <td>{{ record.num_questions }}</td>
+                <td>
+                    <ul>
+                        {% for question in record.questions_asked %}
+                            <li>{{ question }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>{{ record.correct_answers }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No history found.</p>
+    {% endif %}
+    <a href="{{ url_for('menu') }}">Back to Menu</a>
+</body>
+</html>

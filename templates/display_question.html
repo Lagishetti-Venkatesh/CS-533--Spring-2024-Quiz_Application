@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Question {{ question_number }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 50px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        p#timer {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .form-check {
+            margin-bottom: 15px;
+        }
+
+        .btn-primary {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let remainingTime = {{ remaining_time }};
+            const timerElement = document.getElementById('timer');
+
+            // Update the timer every second
+            const timerInterval = setInterval(() => {
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval); // Stop the timer
+                    timerElement.textContent = 'Time limit exceeded.';
+                    alert('Time limit exceeded. Submitting answers...');
+                    // Here you could also redirect to a results or timeout page
+                    window.location.href = "{{ url_for('show_results') }}";
+                } else {
+                    remainingTime--;
+                    timerElement.textContent = `Time remaining: ${remainingTime} seconds`;
+                }
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2>Question {{ question_number }}</h2>
+    <p id="timer">Time remaining: {{ remaining_time }} seconds</p>
+    <form action="" method="post">
+        <p>{{ question['question'] }}</p>
+        {% for option in question['answers'] %}
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="answer" value="{{ loop.index }}" id="option{{ loop.index }}">
+            <label class="form-check-label" for="option{{ loop.index }}">{{ option }}</label>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit Answer</button>
+    </form>
+</div>
+</body>
+</html>
